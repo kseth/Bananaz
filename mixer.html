@@ -72,9 +72,21 @@ function init() {
                 $("#bars").text("The track has " + track.analysis.bars.length + " bars");
                 $("#beats").text("The track has " + track.analysis.beats.length + " beats");
                 $("#info").text("Analysis complete!");
+
+                    //  Starts event handling
+                    $("#play").click(function  () {
+                        console.log("starts playing");
+                        player.stop(); player.play(0, track.analysis.beats);
+                    });
+
+                    $("#stop").click(function () {
+                        console.log("stop playing");
+                        player.stop();
+                    });
             }
         });
     }
+
 }
 
 window.onload = init;
@@ -88,8 +100,8 @@ Welcome to Assemble.html
 <h2>First Track</h2>
 <canvas id='wave' width='1024px' height='100px'></canvas>
 <br />
-<button class='btn btn-inverse btn-original' onClick="player.stop(); player.play(0, track.analysis.beats);">Play!</button>
-<button class='btn btn-original' onClick="player.stop()">Stop!</button>
+<button id="play" class='btn btn-inverse btn-original' >Play!</button>
+<button id="stop"class='btn btn-original'>Stop!</button>
 </div>
 
 <div id='bars'> </div>
