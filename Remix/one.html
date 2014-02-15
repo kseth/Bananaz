@@ -13,26 +13,12 @@
 // You will need to supply your Echo Nest API key, the trackID, and a URL to the track.
 // The supplied track can be found in the audio subdirectory.
 var apiKey = 'IJMOFOATE6IHSZVFT';
-var trackID = 'TRCYWPQ139279B3308';
-var trackURL = 'audio/1451_-_D.mp3'
+var soundCloudApiKey = '7f3d2944e383b89225583a4a8ad4dac1';
 
 var remixer;
 var player;
 var track;
 var remixed;
-
-// Get the analysis, if it is ready
-function analyzeAudio(audio, tag, callback) {
-    var url = 'http://remix.echonest.com/Uploader/qanalyze?callback=?'
-    $.getJSON(url, { url:audio, api_key:apiKey, tag:tag}, function(data) {
-        if (data.status === 'done' || data.status === 'error') {
-            callback(data);
-        } else {
-            $("#info").text(data.status + ' - ready in about ' + data.estimated_wait + ' secs. ');
-            setTimeout(function() { analyzeAudio(audio, tag, callback); }, 8000);
-        } 
-    });
-}
 
 function init() {
     if (window.webkitAudioContext === undefined) {
@@ -42,35 +28,51 @@ function init() {
         var context = new webkitAudioContext();
         remixer = createJRemixer(context, $, apiKey);
         player = remixer.getPlayer();
-        $("#info").text("Loading analysis data...");
+        $("#info").text("Please enter a SoundCloud URL");
 
-        remixer.remixTrackById(trackID, trackURL, function(t, percent) {
-            track = t;
 
-            $("#info").text(percent + "% of the track loaded");
-            if (percent == 100) {
-                $("#info").text(percent + "% of the track loaded, remixing...");
-            }
+	$("#soundcloud-submit").click(function() {
 
-            if (track.status == 'ok') {
-                remixed = new Array();
-                // Do the remixing here!
-                for (var i=0; i < track.analysis.beats.length; i++) {
-                    switch (i % 4 == 0) {
-		    	case 0: remixed.push(track.analysis.beats[i]);
-				remixed.push(track.analysis.beats[i]);
-				break;
-			case 1: break;
-			case 2: remixed.push(track.analysis.beats[i]);
-				remixed.push(track.analysis.beats[i-1]);
-				break;
-			default:remixed.push(track.analysis.beats[i]);
-				break;
-                    }
-                }
-                $("#info").text("Remix complete!");
-            }
-        });
+	$("#info").text("Getting data from SoundCloud...");
+	var soundCloudURL = $("#soundcloud-url").val();
+
+        	remixer.remixTrackBySoundCloudURL(soundCloudURL, soundCloudApiKey, function(t, percent) {
+        	    track = t;
+
+        	    $("#info").text(percent + "% of the track loaded");
+        	    if (percent == 100) {
+        	        $("#info").text(percent + "% of the track loaded, remixing...");
+        	    }
+
+        	    if (track.status == 'ok') {
+        	        remixed = new Array();
+			
+			var meter = parseInt(track.analysis.track.time_signature);
+
+			console.log("starting length: "+track.analysis.beats.length);
+
+        	        // Do the remixing here!
+        	        for (var i=0; i < track.analysis.beats.length; i++) {
+        	            switch (i % meter) {
+			    	case 0: remixed.push(track.analysis.beats[i]);
+					remixed.push(track.analysis.beats[i]);
+					break;
+				case 1: break;
+				case 2: remixed.push(track.analysis.beats[i]);
+					remixed.push(track.analysis.beats[i-1]);
+					break;
+				default:remixed.push(track.analysis.beats[i]);
+					break;
+        	            }
+        	        }
+
+        	        $("#info").text("Remix complete!");
+
+			console.log("ending length: "+remixed.length);
+        	    }
+        	});
+
+	});
     }
 }
 
@@ -79,11 +81,15 @@ window.onload = init;
 
 Welcome to One.html
 
+<div id="info"></div>
+<div id="textbox-div">
+    <input type="text" id="soundcloud-url" />
+    <input type="submit" id="soundcloud-submit" value="Remix!" />
+</div>
+
 <div id='info'> </div>
 <button onClick="player.stop(); player.play(0, remixed);">Play!</button>
 <button onClick="player.stop()">Stop!</button>
 </body>
-
-
 
 </html>
