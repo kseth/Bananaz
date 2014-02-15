@@ -23,14 +23,9 @@ var player;
 var track;
 var remixed;
 
-function addBar() {
-    var index = $("#indexBox").val();
-    player.queue(track.analysis.bars[index])
-}
-
-function addBeat() {
-    var index = $("#indexBox").val();
-    player.queue(track.analysis.beats[index])
+function addBar(index) {
+    player.queue(track.analysis.bars[index]);
+    // player.play(0, track.analysis.bars[index]);
 }
 
 function init() {
@@ -70,7 +65,6 @@ function init() {
 
 		//get the properties of the song
                 $("#bars").text("The track has " + track.analysis.bars.length + " bars");
-                $("#beats").text("The track has " + track.analysis.beats.length + " beats");
                 $("#info").text("Analysis complete!");
 
                     //  Starts event handling
@@ -83,6 +77,11 @@ function init() {
                         console.log("stop playing");
                         player.stop();
                     });
+
+		    $("#addBar").click(function() {
+			console.log("adding bar: "+$("#indexBox").val());
+			addBar($("#indexBox").val);
+		    });
             }
         });
     }
@@ -104,11 +103,10 @@ Welcome to Assemble.html
 <button id="stop"class='btn btn-original'>Stop!</button>
 </div>
 
+<!-- This is for adding bars-->
 <div id='bars'> </div>
-<div id='beats'> </div>
 <input type="text" id="indexBox">
-<button onClick="addBar()">Add bar from Track 1</button>
-<button onClick="addBeat()">Add beat from Track 1</button>
+<button id="addBar">Add bar from Track 1</button>
 <br />
 
 </body>
