@@ -25,6 +25,12 @@ body {
 	background-color: #333;
 	height: 30em;
 }
+#music-dashboard #left{
+	float: left;
+}
+#music-dashboard #right{
+	float: right;
+}
 
 #acapella-midi-controls, #dj-effects-midi-controls{
 	margin: 2em auto;
@@ -33,7 +39,7 @@ body {
 #acapella-midi-controls a , #dj-effects-midi-controls a {
 	border: 2px solid #5ebbc2;
 	background-color: #333;
-	margin-left: 2em;
+	margin-left: 1em;
 	width: 5em;
 }
 
