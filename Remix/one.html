@@ -24,14 +24,13 @@ function mix1(track){
 
   redo = new Array();
   
-  if(track.status != "ok")
+  if(!track.status || track.status != "ok")
     return redo;
 			
   var meter = parseInt(track.analysis.track.time_signature);
   
   console.log("starting length: "+track.analysis.beats.length);
   
-  // Do the remixing here!
   for (var i=0; i < track.analysis.beats.length; i++) {
       switch (i % meter) {
       	case 0: redo.push(track.analysis.beats[i]);
@@ -56,7 +55,7 @@ function mix2(track){
 
   redo = new Array();
 
-  if(track.status != "ok")
+  if(!track || track.status != "ok")
     return redo;
 
   console.log("reversing song");
@@ -67,7 +66,55 @@ function mix2(track){
   return redo;
 }
 
-function mix3(){}
+//third mix - scrambles beats in each measure
+function mix3(track){
+
+  redo = new Array();
+
+  var meter = parseInt(track.analysis.track.time_signature);
+  var beatArray = new Array();
+
+  for(var i=0; i<meter; i++)
+    beatArray.push(i);
+
+  if(!track || track.status != "ok")
+    return redo;
+
+  console.log("scrambling music");
+  for (var i=0; i < track.analysis.bars.length - 1; i++) {
+    shuffle(beatArray);
+    
+    for(var ind=0; ind<meter; ind++)
+      redo.push(track.analysis.beats[i*meter+beatArray[ind]]);
+  }
+
+  return redo;
+
+}
+
+//function that shuffles array
+function shuffle(array) {
+  var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
 function mix4(){}
 function mix5(){}
 
@@ -107,9 +154,8 @@ function init(){
         	        $("#info").text(percent + "% of the track loaded, remixing...");
         	    }
 
-        	    if (track.status == 'ok') {
-		    	remixed = mix2(track);
-			play(remixed);
+        	    if (track && track.status == 'ok') {
+		    	remixed = mix3(track);
 
 			//load the remix into the waveform
 		        wavesurfer.loadBuffer(remixed);
