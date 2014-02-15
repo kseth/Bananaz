@@ -1,4 +1,49 @@
 
 body {
-	background-color: #f2f2f2;
+	background-color: #333;
+}
+
+/*
+
+	HEADER
+
+*/
+
+#logo h1{
+	font-family: 'Exo 2', sans-serif;
+	color: #fff;
+}
+
+/*
+
+	BODY
+
+*/
+
+
+#music-dashboard {
+	background-color: #333;
+	height: 30em;
+}
+
+#acapella-midi-controls, #dj-effects-midi-controls{
+	margin: 2em auto;
+}
+
+#acapella-midi-controls a , #dj-effects-midi-controls a {
+	border: 2px solid #5ebbc2;
+	background-color: #333;
+	margin-left: 2em;
+	width: 5em;
+}
+
+#background-instrumental{
+	height: 20em;
+}
+
+#acapella-midi-controls a:hover , #dj-effects-midi-controls a:hover,
+#acapella-midi-controls a.pressed , #dj-effects-midi-controls a.pressed {
+	-moz-box-shadow:    0px 0px 3px 3px #5ebbc2;
+	-webkit-box-shadow: 0px 0px 3px 3px #5ebbc2;
+	box-shadow:         0px 0px 3px 3px #5ebbc2;
 }

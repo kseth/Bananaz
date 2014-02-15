@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Bananaz</title>
+    <title>Bananaz</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
     <script src="js/vendor/modernizr.js"></script>
   </head>
   <body>
@@ -13,7 +14,9 @@
     <div id="header" class="row">
 
       <div class="large-12 columns">
-        <div id="logo">logo</div>
+        <div id="logo">
+          <h1>BANANAZ</h1>
+        </div>
       </div>
 
     </div><!-- #header -->
@@ -21,27 +24,31 @@
     <div id="music-dashboard" class="row">
 
       <div class="large-12 columns">
-        <div id="acapella-midi-controls">
-          <a href="#" class="button">A</a>
-          <a href="#" class="button">B</a>
-          <a href="#" class="button">C</a>
-          <a href="#" class="button">D</a>
+        <div id="acapella-midi-controls" class="large-8 columns">
+          <a href="#" class="button" id="Q">Q</a>
+          <a href="#" class="button" id="W">W</a>
+          <a href="#" class="button" id="E">E</a>
+          <a href="#" class="button" id="R">R</a>
         </div>
 
         <div id="background-instrumental">
 
         </div>
 
-        <div id="dj-effects-midi-controls">
-
+        <div id="dj-effects-midi-controls" class="large-8 columns">
+          <a href="#" class="button">H</a>
+          <a href="#" class="button">J</a>
+          <a href="#" class="button">K</a>
+          <a href="#" class="button">L</a>
         </div>
       </div>
 
-    </div>
+    </div><!-- #music-dashboard -->
 
     
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
       $(document).foundation();
     </script>
