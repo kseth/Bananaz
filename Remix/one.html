@@ -11,7 +11,6 @@
 <script type="text/javascript" src='remix.js'></script>
 <script type="text/javascript">
 
-// First-beat extraction and assembly
 var apiKey = 'IJMOFOATE6IHSZVFT'; //echoNest api key
 var soundCloudApiKey = '7f3d2944e383b89225583a4a8ad4dac1'; //soundcloud client id key
 
@@ -19,6 +18,58 @@ var remixer;
 var player;
 var track;
 var remixed;
+
+//first mix - doubles first beat, swaps 2nd and 3rd beats
+function mix1(track){
+
+  redo = new Array();
+  
+  if(track.status != "ok")
+    return redo;
+			
+  var meter = parseInt(track.analysis.track.time_signature);
+  
+  console.log("starting length: "+track.analysis.beats.length);
+  
+  // Do the remixing here!
+  for (var i=0; i < track.analysis.beats.length; i++) {
+      switch (i % meter) {
+      	case 0: redo.push(track.analysis.beats[i]);
+  		redo.push(track.analysis.beats[i]);
+  		break;
+  	case 1: break;
+  	case 2: redo.push(track.analysis.beats[i]);
+  		redo.push(track.analysis.beats[i-1]);
+  		break;
+  	default:redo.push(track.analysis.beats[i]);
+  		break;
+      }
+  }
+
+  console.log("ending length: "+redo.length);
+  
+  return redo;
+}
+
+//second mix - reverses beats in song
+function mix2(track){
+
+  redo = new Array();
+
+  if(track.status != "ok")
+    return redo;
+
+  console.log("reversing song");
+  for (var i=track.analysis.beats.length-1; i>=0; i--) {
+    redo.push(track.analysis.beats[i]);
+  }
+
+  return redo;
+}
+
+function mix3(){}
+function mix4(){}
+function mix5(){}
 
 function init(){
     if (window.webkitAudioContext === undefined) {
@@ -57,26 +108,8 @@ function init(){
         	    }
 
         	    if (track.status == 'ok') {
-		    	remixed = new Array();
-			
-			var meter = parseInt(track.analysis.track.time_signature);
-
-			console.log("starting length: "+track.analysis.beats.length);
-
-        	        // Do the remixing here!
-        	        for (var i=0; i < track.analysis.beats.length; i++) {
-        	            switch (i % meter) {
-			    	case 0: remixed.push(track.analysis.beats[i]);
-					remixed.push(track.analysis.beats[i]);
-					break;
-				case 1: break;
-				case 2: remixed.push(track.analysis.beats[i]);
-					remixed.push(track.analysis.beats[i-1]);
-					break;
-				default:remixed.push(track.analysis.beats[i]);
-					break;
-        	            }
-        	        }
+		    	remixed = mix2(track);
+			play(remixed);
 
 			//load the remix into the waveform
 		        wavesurfer.loadBuffer(remixed);
@@ -86,7 +119,7 @@ function init(){
                         // Handle play and stop now that remix complete 
                         $("#play").click(function  () {
                             console.log("starts playing");
-                            player.stop(); player.play(0, track.analysis.beats);
+                            player.stop(); player.play(0, remixed);
                         });
    
                         $("#stop").click(function () {
@@ -94,7 +127,6 @@ function init(){
                             player.stop();
                         });
 
-			console.log("ending length: "+remixed.length);
         	    }
         	});
 

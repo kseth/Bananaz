@@ -71,7 +71,6 @@ WaveSurfer.Drawer = {
 
     progress: function (percents) {
         this.cursorPos = ~~(this.width * percents);
-	console.log(this.cursorPos);
         this.redraw();
     },
 
