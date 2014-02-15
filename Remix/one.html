@@ -18,11 +18,11 @@ var remixer;
 var player;
 var track;
 var remixed;
-var intervalVar; //ideally should not be global 
+var intervalVar; //(should not be global) holds event trigger for updating waveform 
 
 //zeroeth mix - no mix
 function mix0(track){
-  redo = new Array();
+  var redo = new Array();
 
   if(!track.status || track.status != "ok")
     return redo;
@@ -37,7 +37,7 @@ function mix0(track){
 //first mix - doubles first beat, swaps 2nd and 3rd beats
 function mix1(track){
 
-  redo = new Array();
+  var redo = new Array();
   
   if(!track.status || track.status != "ok")
     return redo;
@@ -68,7 +68,7 @@ function mix1(track){
 //second mix - reverses beats in song
 function mix2(track){
 
-  redo = new Array();
+  var redo = new Array();
 
   if(!track || track.status != "ok")
     return redo;
@@ -84,7 +84,7 @@ function mix2(track){
 //third mix - scrambles beats in each measure
 function mix3(track){
 
-  redo = new Array();
+  var redo = new Array();
 
   var meter = parseInt(track.analysis.track.time_signature);
   var beatArray = new Array();
@@ -133,7 +133,7 @@ function shuffle(array) {
 //slicer - replace one random beats per measure with another beat
 function mix4(track){
 
-  redo = new Array();
+  var redo = new Array();
 
   var meter = parseInt(track.analysis.track.time_signature);
 
@@ -164,7 +164,7 @@ function mix4(track){
 //twinsies - mix the beginning of the song with the end of the song
 function mix5(track){
 
-  redo = new Array();
+  var redo = new Array();
 
   if(!track || track.status != "ok")
     return redo;
@@ -176,6 +176,40 @@ function mix5(track){
 
     redo.push(track.analysis.beats[i]);
     redo.push(track.analysis.beats[j]);
+
+  }
+
+  return redo;
+}
+
+//random walk - randomly move from the middle of the music, assembling the beats
+function mix6(track){
+  
+  var redo = new Array();
+
+  if(!track || track.status != "ok")
+    return redo;
+
+  console.log("random walk!");
+
+  var indices = new Array();
+  for(var ind=0; ind<track.analysis.beats.length; ind++)
+    indices.push(ind);
+
+  var pos = indices.length/2;
+  while(indices.length > 0){
+
+    if(indices.length > pos && pos >= 0)
+    	redo.push(track.analysis.beats[indices.splice(pos, 1)]);
+    else
+        redo.push(track.analysis.beats[indices.splice(indices.length/2, 1)]);
+
+    pos = indices.length/2;
+ 
+    if(Math.random() > 0.5)
+      pos--;
+    else
+      pos++;
 
   }
 
@@ -219,7 +253,7 @@ function init(){
         	    }
 
         	    if (track && track.status == 'ok') {
-		    	remixed = mix5(track);
+		    	remixed = mix6(track);
 
 			//load the remix into the waveform
 		        wavesurfer.loadBuffer(remixed);
