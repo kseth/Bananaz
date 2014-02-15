@@ -38,9 +38,11 @@ function init() {
     // initialize the waveform object
     var wavesurfer = Object.create(WaveSurfer);
         wavesurfer.init({
-            canvas: document.querySelector('#waveCanvas'),
-    	waveColor: 'violet',
-    	progressColor: 'purple'
+            canvas: document.querySelector('#wave'),
+    	    waveColor: 'violet',
+    	    progressColor: 'purple',
+	    loadingColor: 'purple',
+	    cursorColor: 'navy'
         });
 
     if (window.webkitAudioContext === undefined) {
@@ -81,10 +83,10 @@ window.onload = init;
 Welcome to Assemble.html
 <div id='info'> </div>
 
-<!-- This is the waveform object with play and stop buttons-->
+<!-- This is the waveform container with play and stop buttons-->
 <div id='waveform'>
 <h2>First Track</h2>
-<canvas id='waveCanvas' width='1024px' height='100px'></canvas>
+<canvas id='wave' width='1024px' height='100px'></canvas>
 <br />
 <button class='btn btn-inverse btn-original' onClick="player.stop(); player.play(0, track.analysis.beats);">Play!</button>
 <button class='btn btn-original' onClick="player.stop()">Stop!</button>

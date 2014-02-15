@@ -71,6 +71,7 @@ WaveSurfer.Drawer = {
 
     progress: function (percents) {
         this.cursorPos = ~~(this.width * percents);
+	console.log(this.cursorPos);
         this.redraw();
     },
 
@@ -109,8 +110,11 @@ WaveSurfer.Drawer = {
 
         var x = index * w;
         var y = Math.round((this.height - h) / 2);
-
-        this.cc.fillStyle = this.params.waveColor;
+	
+	if(x > this.cursorPos)
+        	this.cc.fillStyle = this.params.waveColor;
+	else
+	  	this.cc.fillStyle = this.params.progressColor;
         this.cc.fillRect(x, y, w, h);
     },
 
