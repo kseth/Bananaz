@@ -18,6 +18,21 @@ var remixer;
 var player;
 var track;
 var remixed;
+var intervalVar; //ideally should not be global 
+
+//zeroeth mix - no mix
+function mix0(track){
+  redo = new Array();
+
+  if(!track.status || track.status != "ok")
+    return redo;
+
+  for(var i=0; i<track.analysis.beats.length; i++){
+	redo.push(track.analysis.beats[i]);
+  }
+
+  return redo;
+}
 
 //first mix - doubles first beat, swaps 2nd and 3rd beats
 function mix1(track){
@@ -146,7 +161,26 @@ function mix4(track){
 
 }
 
-function mix5(track){}
+//twinsies - mix the beginning of the song with the end of the song
+function mix5(track){
+
+  redo = new Array();
+
+  if(!track || track.status != "ok")
+    return redo;
+
+  console.log("twinsies!");
+
+  for(var i=0, j=track.analysis.beats.length-1; 
+      i<track.analysis.beats.length/2; i++, j--){    
+
+    redo.push(track.analysis.beats[i]);
+    redo.push(track.analysis.beats[j]);
+
+  }
+
+  return redo;
+}
 
 function init(){
     if (window.webkitAudioContext === undefined) {
@@ -185,7 +219,7 @@ function init(){
         	    }
 
         	    if (track && track.status == 'ok') {
-		    	remixed = mix4(track);
+		    	remixed = mix5(track);
 
 			//load the remix into the waveform
 		        wavesurfer.loadBuffer(remixed);
@@ -193,15 +227,33 @@ function init(){
 			$("#info").text("Remix complete!");
 
                         // Handle play and stop now that remix complete 
-                        $("#play").click(function  () {
+                        $("#play").click(function(){
                             console.log("starts playing");
-                            player.stop(); player.play(0, remixed);
+                            
+			    player.stop();
+			    if(intervalVar){
+			    	window.clearInterval(intervalVar);
+			        wavesurfer.drawer.progress(0);
+			    }	
+			   
+			    player.play(0, remixed);
+			   
+			    // function to force progress bar for waveform 
+			    var currentTime = 0; //currentTime, incremented by intervalVar
+			    var timeInt = 100; //refreshing of cursor in milliseconds
+			    intervalVar = window.setInterval(function(){
+			      	currentTime += timeInt/1000;
+				wavesurfer.drawer.progress(currentTime/track.analysis.meta.seconds);
+			      }, timeInt);
+
                         });
    
                         $("#stop").click(function () {
                             console.log("stop playing");
                             player.stop();
-                        });
+                            window.clearInterval(intervalVar);
+			    wavesurfer.drawer.progress(0);
+			});
 
         	    }
         	});
