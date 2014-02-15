@@ -115,8 +115,38 @@ function shuffle(array) {
   return array;
 }
 
-function mix4(){}
-function mix5(){}
+//slicer - replace one random beats per measure with another beat
+function mix4(track){
+
+  redo = new Array();
+
+  var meter = parseInt(track.analysis.track.time_signature);
+
+  if(!track || track.status != "ok")
+    return redo;
+
+  console.log("slicing music");
+  var remove;
+  for (var i=0; i < track.analysis.bars.length - 1; i++) {
+    
+    remove = Math.floor(Math.random()*meter);
+
+    for(var ind=0; ind<meter; ind++){
+    
+      if(ind!=remove){	
+	redo.push(track.analysis.beats[i*meter+ind]);
+      } else{
+	redo.push(track.analysis.beats[i*meter+ind+1]);
+      }
+    }
+
+  }
+
+  return redo;
+
+}
+
+function mix5(track){}
 
 function init(){
     if (window.webkitAudioContext === undefined) {
@@ -155,7 +185,7 @@ function init(){
         	    }
 
         	    if (track && track.status == 'ok') {
-		    	remixed = mix3(track);
+		    	remixed = mix4(track);
 
 			//load the remix into the waveform
 		        wavesurfer.loadBuffer(remixed);
