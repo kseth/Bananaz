@@ -107,6 +107,10 @@ video {
   *zoom: 1;
 }
 
+#wave{
+	padding: 1em 0;
+}
+
 #waveform #play, #waveform #stop, #waveform #select-mix-styles,
 #waveform #start-mixing {
 	display: none;
