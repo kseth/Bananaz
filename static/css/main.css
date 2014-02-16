@@ -41,6 +41,11 @@ input[type=text] {
 
 */
 
+#about {
+  width: 20em;
+  margin: 2em auto;
+}
+
 /*
 
 	STARTING PAGE
