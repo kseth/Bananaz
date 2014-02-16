@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset=utf-8>
-</head>
-
-<body>
-
-<script type="text/javascript">
-
 var apiKey = 'IJMOFOATE6IHSZVFT'; //echoNest api key
 var soundCloudApiKey = '7f3d2944e383b89225583a4a8ad4dac1'; //soundcloud client id key
 
@@ -246,10 +236,13 @@ function init(){
 
         	    $("#info").text(percent + "% of the track loaded");
         	    if (percent == 100) {
-        	        $("#info").text(percent + "% of the track loaded, remixing...");
+        	        $("#info").text(percent + "% of the track loaded, done uploading...");
         	    }
 
         	    if (track && track.status == 'ok') {
+
+
+
 		    	remixed = mix6(track);
 
 			//load the remix into the waveform
@@ -258,6 +251,9 @@ function init(){
 			$("#info").text("Remix complete!");
 
                         // Handle play and stop now that remix complete 
+                        $("#play").show();
+                        $("#stop").show();
+                        $("#select-mix-styles").show();
                         $("#play").click(function(){
                             console.log("starts playing");
                             
@@ -281,10 +277,11 @@ function init(){
    
                         $("#stop").click(function () {
                             console.log("stop playing");
+
                             player.stop();
                             window.clearInterval(intervalVar);
-			    wavesurfer.drawer.progress(0);
-			});
+                  			    wavesurfer.drawer.progress(0);
+                  			});
 
         	    }
         	});
@@ -294,24 +291,3 @@ function init(){
 }
 
 window.onload = init;
-</script>
-
-Welcome to One.html
-
-<div id="info"></div>
-<div id="textbox-div">
-    <input type="text" id="soundcloud-url" />
-    <input type="submit" id="soundcloud-submit" value="Remix!" />
-</div>
-
-
-<!-- This is the waveform div with play and stop buttons-->
-<div id='waveform'>
-<h2>Remixed Track</h2>
-<canvas id='wave' width='1024px' height='100px'></canvas>
-<br />
-<button id="play" class='btn btn-inverse btn-original' >Play!</button>
-<button id="stop"class='btn btn-original'>Stop!</button>
-</div>
-
-</html>

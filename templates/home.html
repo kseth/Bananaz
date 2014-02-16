@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+    <div id="header" class="row">
+
+      <div class="large-12 columns">
+        <div id="logo">
+          <h1>BANANAZ</h1>
+        </div>
+      </div>
+
+    </div><!-- #header -->
+
+    <div id="music-dashboard" class="row">
+
+		<div id="info" class="large-12 columns"></div>
+		<div id="textbox-div">
+		    <input type="text" id="soundcloud-url" />
+		    <input type="submit" id="soundcloud-submit" class="button" value="Upload" />
+		</div>
+
+
+		<!-- This is the waveform div with play and stop buttons-->
+		<div id='waveform'>
+			<div id="select-mix-styles">
+				<input type="radio" name="remix-style" value="no-mix">
+					<img src="./static/img/no-mix.svg" height="50">No mix<br>
+				<input type="radio" name="remix-style" value="dice">
+					<img src="./static/img/dice.svg" height="50">Dice<br>
+				<input type="radio" name="remix-style" value="reverse">
+					<img src="./static/img/reverse.svg" height="50">Reverse<br>
+				<input type="radio" name="remix-style" value="scramble">
+					<img src="./static/img/scramble.svg" height="50">Scramble<br>
+				<input type="radio" name="remix-style" value="slice">
+					<img src="./static/img/slice.svg" height="50">Slice<br>
+				<input type="radio" name="remix-style" value="twins">
+					<img src="./static/img/twins.svg" height="50">Twins<br>
+				<input type="radio" name="remix-style" value="random">
+					<img src="./static/img/random.svg" height="50">Random<br>
+			</div><!-- #select-mix-styles -->
+			<h2>Remixed Track</h2>
+			<canvas id='wave' width='1024px' height='150px'></canvas>
+			<br />
+			<button id="play" class='btn btn-inverse btn-original' >Play</button>
+			<button id="stop"class='btn btn-original'>Stop</button>
+		</div>
+
+	</div><!-- #music-dashboard -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="./static/js/wavesurfer.js"></script>
+<script src="./static/js/drawer.js"></script>
+<script src='./static/js/remix.js'></script>
+<script src="./static/js/main-home.js"></script>
+{% endblock %}

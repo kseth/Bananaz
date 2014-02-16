@@ -1,0 +1,83 @@
+
+body {
+	background-color: #333;
+	color: #fff;
+}
+
+/*
+
+	HEADER
+
+*/
+
+#logo h1{
+	font-family: 'Exo 2', sans-serif;
+	color: #fff;
+}
+
+/*
+
+	BODY
+
+*/
+
+/*
+
+	STARTING PAGE
+
+*/
+
+#info{
+	margin: 2em auto;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+#waveform #play, #waveform #stop, #waveform #select-mix-styles{
+	display: none;
+}
+
+/*
+
+	MIDI CONTROLLER PAGE
+
+*/
+
+#music-dashboard {
+	background-color: #333;
+	height: 30em;
+}
+#music-dashboard #left{
+	float: left;
+}
+#music-dashboard #right{
+	float: right;
+}
+
+#acapella-midi-controls, #dj-effects-midi-controls{
+	margin: 2em auto;
+}
+
+#acapella-midi-controls a , #dj-effects-midi-controls a {
+	border: 2px solid #5ebbc2;
+	background-color: #333;
+	margin-left: 1em;
+	width: 5em;
+}
+
+#background-instrumental{
+	height: 20em;
+}
+
+#acapella-midi-controls a:hover , #dj-effects-midi-controls a:hover,
+#acapella-midi-controls a.pressed , #dj-effects-midi-controls a.pressed {
+	-moz-box-shadow:    0px 0px 3px 3px #5ebbc2;
+	-webkit-box-shadow: 0px 0px 3px 3px #5ebbc2;
+	box-shadow:         0px 0px 3px 3px #5ebbc2;
+}
