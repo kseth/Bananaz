@@ -52,30 +52,39 @@ input[type=text] {
 	display: none;
 }
 
+#textbox-div{
+	margin: 10% auto;
+}
+
 #textbox-div #soundcloud-url{
-	width: 25em;
+	width: 35em;
 	float: left;
 	background: none;
 	border: none;
 	outline: none;
 	border-bottom: 3px solid #fff;
+	margin-left: 10%;
 }
 #textbox-div #soundcloud-url:focus{
 	outline: none;
 	border-bottom: 3px solid #fff;
 }
 #textbox-div #soundcloud-submit{
-	float: right;
+	float: left;
+	margin-left: 2em;
 }
 
+#select-mix-styles {
+	margin: 0 auto;
+}
 #select-mix-styles div{
 	border: 2px solid #fff;
 	margin-right: 1em;
 	padding: 0.5em;
 }
 #select-mix-styles img{
-	width: 3em;
-	height: 3em;
+	width: 2.5em;
+	height: 2.5em;
 	margin-right: 0.3em;
 }
 
@@ -106,6 +115,13 @@ video {
 	float: left;
 }
 
+#playback-controls{
+	width: 20em;
+	margin: 0 auto;
+}
+#playback-controls button{
+	margin-left: 1em;
+}
 /*
 
 	MIDI CONTROLLER PAGE
@@ -147,4 +163,9 @@ video {
 	-moz-box-shadow:    0px 0px 3px 3px #5ebbc2;
 	-webkit-box-shadow: 0px 0px 3px 3px #5ebbc2;
 	box-shadow:         0px 0px 3px 3px #5ebbc2;
+}
+
+#dj-effects-midi-controls div{
+	width: 35em;
+	margin: 0 auto;
 }

@@ -40,8 +40,8 @@
 
 
 		<!-- This is the waveform div with play and stop buttons-->
-		<div id='waveform'>
-			<form id="select-mix-styles">
+		<div id='waveform' class="large-12 columns">
+			<form id="select-mix-styles" class="large-12 columns">
 				<div id="no-mix" class="selected">
 					<img src="./static/img/no-mix.svg" height="50">No mix<br>
 				</div>
@@ -74,19 +74,23 @@
 			<h2>Remixed Track</h2>
 			<canvas id='wave' width='924px' height='100px'></canvas>
 			<br />
-			<button id="play" class='btn btn-inverse btn-original'>Play</button>
-			<button id="stop" class='btn btn-original'>Stop</button>
+			<div id="playback-controls">
+				<button id="play" class='btn btn-inverse btn-original'>Play</button>
+				<button id="stop" class='btn btn-original'>Stop</button>
+			</div>
 
 			<button id="start-mixing" class='btn btn-original'>Start Mixing >></button>
 
 
 			<!-- HIDDEN -->
-	        <div id="dj-effects-midi-controls" class="large-8 columns">
-	          <a href="#" class="button" id="H">H</a>
-	          <a href="#" class="button" id="J">J</a>
-	          <a href="#" class="button" id="K">K</a>
-	          <a href="#" class="button" id="L">L</a>
-	          <a href="#" class="button" id="M">M</a>
+	        <div id="dj-effects-midi-controls" class="large-12 columns">
+	        	<div>
+		          <a href="#" class="button" id="H">H</a>
+		          <a href="#" class="button" id="J">J</a>
+		          <a href="#" class="button" id="K">K</a>
+		          <a href="#" class="button" id="L">L</a>
+		          <a href="#" class="button" id="M">M</a>
+	          	</div>
 	        </div>
 
 		</div>
