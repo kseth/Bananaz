@@ -211,99 +211,124 @@ function init(){
 
         // initialize the waveform object
         var wavesurfer = Object.create(WaveSurfer);
-            wavesurfer.init({
+        wavesurfer.init({
                 canvas: document.querySelector('#wave'),
         	    waveColor: 'violet',
         	    progressColor: 'purple',
              loadingColor: 'purple',
              cursorColor: 'navy'
-            });
+        });
 
 
-	// initialize the web audio player
+	      // initialize the web audio player
         var context = new webkitAudioContext();
         remixer = createJRemixer(context, $, apiKey);
         player = remixer.getPlayer();
         $("#info").text("Please enter a SoundCloud URL");
 
-	$("#soundcloud-submit").click(function() {
+	      $("#soundcloud-submit").click(function() {
 
-		$("#info").text("Getting data from SoundCloud...");
-		var soundCloudURL = $("#soundcloud-url").val();
+		    $("#info").text("Getting data from SoundCloud...");
+		    var soundCloudURL = $("#soundcloud-url").val();
 
-        	remixer.remixTrackBySoundCloudURL(soundCloudURL, soundCloudApiKey, function(t, percent) {
-         	track = t;
+        remixer.remixTrackBySoundCloudURL(soundCloudURL, soundCloudApiKey, function(t, percent) {
+         	 track = t;
 
-        	    $("#info").text(percent + "% of the track loaded");
-        	    if (percent == 100) {
+        	 $("#info").text(percent + "% of the track loaded");
+        	 if (percent == 100) {
         	        $("#info").text(percent + "% of the track loaded, done uploading...");
-        	    }
+        	 }
 
-        	    if (track && track.status == 'ok') {
+        	 if (track && track.status == 'ok') {
+                  
+                  remixed = track.analysis.beats;
+                  wavesurfer.loadBuffer(remixed);
+                  $("#play").show();
+                  $("#stop").show();
+                  $("#start-mixing").show();
 
-                        $("#select-mix-styles").show();
-		      	$("#select-mix-styles").find("input").click(function(evt){
-		    	 
-			  //make the remixer based on switching the value of the form
-			  switch($(evt.currentTarget).attr("id")){ 
-			  	case "no-mix": remixed = mix0(track);
-				       break;
-			  	case "dice": remixed = mix1(track);
-				       break;
-			  	case "reverse": remixed = mix2(track);
-				       break;
-			  	case "scramble": remixed = mix3(track);
-				       break;
-			  	case "slice": remixed = mix4(track);
-				       break;
-			  	case "twins": remixed = mix5(track);
-				       break;
-			  	case "random": remixed = mix6(track);
-				       break;
-			  }
+                 $("#play").click(function(){
+                    console.log("starts playing");          
+                    player.stop();
+                    if(intervalVar){
+                       window.clearInterval(intervalVar);
+                       wavesurfer.drawer.progress(0);
+                    }   
+           
+                     player.play(0, remixed);
+           
+                     // function to force progress bar for waveform 
+                     var currentTime = 0; //currentTime, incremented by intervalVar
+                     var timeInt = 100; //refreshing of cursor in milliseconds
+                     intervalVar = window.setInterval(function(){
+                        currentTime += timeInt/1000;
+                         wavesurfer.drawer.progress(currentTime/track.analysis.meta.seconds);
+                      }, timeInt);
+  
+                   }); //end of start.click();
+     
+                  $("#stop").click(function () {
+                      console.log("stop playing");
+
+                      player.stop();
+                      window.clearInterval(intervalVar);
+                      wavesurfer.drawer.progress(0);
+                   }); //end of stop.click();
+                  
+                  $("#info").text("Original Song, Select Remix");
+
+
+              $("#select-mix-styles").show();
+		      	  $("#select-mix-styles").find("input").click(function(evt){
+                  //make the remixer based on switching the value of the form
+          			  switch($(evt.currentTarget).attr("id")){ 
+          			  	case "no-mix": remixed = mix0(track);
+          				       break;
+          			  	case "dice": remixed = mix1(track);
+          				       break;
+          			  	case "reverse": remixed = mix2(track);
+          				       break;
+          			  	case "scramble": remixed = mix3(track);
+          				       break;
+          			  	case "slice": remixed = mix4(track);
+          				       break;
+          			  	case "twins": remixed = mix5(track);
+          				       break;
+          			  	case "random": remixed = mix6(track);
+          				       break;
+          			  }
 
   		       	  //load the remix into the waveform
   		          wavesurfer.loadBuffer(remixed);
           	          
-  		  	  $("#info").text("Remix complete!");
+  		  	      $("#info").text("Remix complete!");
   
-                          // Handle play and stop now that remix complete 
-                          $("#play").show();
-                          $("#stop").show();
-                          $("#play").click(function(){
-                              console.log("starts playing");
-                              
-  			      player.stop();
-  			      if(intervalVar){
-  			    	 window.clearInterval(intervalVar);
-  			         wavesurfer.drawer.progress(0);
-  			     } 	
-  			   
-  			     player.play(0, remixed);
-  			   
-  			     // function to force progress bar for waveform 
-  			     var currentTime = 0; //currentTime, incremented by intervalVar
-  			     var timeInt = 100; //refreshing of cursor in milliseconds
-  			     intervalVar = window.setInterval(function(){
-  			      	currentTime += timeInt/1000;
-  				wavesurfer.drawer.progress(currentTime/track.analysis.meta.seconds);
-  			      }, timeInt);
-  
-                        }); //end of start.click();
-     
-                        $("#stop").click(function () {
-                              console.log("stop playing");
-  
-                              player.stop();
-                              window.clearInterval(intervalVar);
-                    			    wavesurfer.drawer.progress(0);
-                    	}); //end of stop.click();
+                // Handle play and stop now that remix complete 
+
   
         	    	}); //end of select-mix-styles.click();
-		    }
-        	}); //end of remixer
 
-	}); //end of sound-cloud submit button
+              $("#start-mixing").click(function (evt) {
+                
+                $("#info").hide('slow', function(){ $("#info").remove(); });
+
+                $("#start-mixing").hide('slow', function(){ $("#start-mixing").remove(); });
+
+                $("#textbox-div").hide('slow', function(){ $("#textbox-div").remove(); });
+
+                $("#select-mix-styles").hide('slow', function(){ $("#select-mix-styles").remove(); });
+
+                $("#acapella-midi-controls").show("slow");
+                $("#dj-effects-midi-controls").show("slow");
+
+                //  STARTS THE MIDI STUFF
+                $("body").keydown(playAcapella).keyup(stopAcapella);
+
+              });
+		    }
+      }); //end of remixer
+
+	   }); //end of sound-cloud submit button
     }
 }
 

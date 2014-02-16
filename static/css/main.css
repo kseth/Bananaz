@@ -39,8 +39,17 @@ video {
   *zoom: 1;
 }
 
-#waveform #play, #waveform #stop, #waveform #select-mix-styles{
+#waveform #play, #waveform #stop, #waveform #select-mix-styles,
+#waveform #start-mixing {
 	display: none;
+}
+
+#waveform #start-mixing {
+	float: right;
+}
+
+#select-mix-styles div{
+	float: left;
 }
 
 /*
@@ -48,6 +57,10 @@ video {
 	MIDI CONTROLLER PAGE
 
 */
+
+#acapella-midi-controls, #dj-effects-midi-controls{
+	display: none;
+}
 
 #music-dashboard {
 	background-color: #333;
