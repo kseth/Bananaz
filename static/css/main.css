@@ -41,6 +41,11 @@ input[type=text] {
 
 */
 
+#about {
+  width: 20em;
+  margin: 2em auto;
+}
+
 /*
 
 	STARTING PAGE
@@ -169,7 +174,6 @@ video {
 	width: 35em;
 	margin: 0 auto;
 }
-
 /*
 
 	FOOOTER
