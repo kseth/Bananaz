@@ -169,3 +169,13 @@ video {
 	width: 35em;
 	margin: 0 auto;
 }
+
+/*
+
+	FOOOTER
+
+*/
+footer p{
+	text-align: center;
+	padding-bottom: 1em;
+}
