@@ -223,7 +223,7 @@ function init(){
 	// initialize the web audio player
         var context = new webkitAudioContext();
         remixer = createJRemixer(context, $, apiKey);
-        player = remixer.getPlayer(undefined, 0.40);
+        player = remixer.getPlayer(undefined, 0.50);
         $("#info").text("Please enter a SoundCloud URL");
 
 	      $("#soundcloud-submit").click(function() {
