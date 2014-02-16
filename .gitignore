@@ -9,3 +9,5 @@ dist
 _mailinglist
 .tox
 venv
+bin
+lib
