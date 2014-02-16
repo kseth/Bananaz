@@ -282,13 +282,18 @@ function init(){
 
 
               $("#select-mix-styles").show();
+
 		      	  $("#select-mix-styles").find("div").click(function(evt){
 
                 // Find the selected styles
                 $("#select-mix-styles").find(".selected").removeClass("selected");
                 $(evt.currentTarget).addClass("selected");
 
-                  //make the remixer based on switching the value of the form
+
+      				  //stop the old player
+      				  player.stop();
+      				  window.clearInterval(intervalVar);
+      				  wavesurfer.drawer.progress(0);
 
           			  switch($(evt.currentTarget).attr("id")){ 
           			  	case "no-mix": remixed = mix0(track);
@@ -306,14 +311,10 @@ function init(){
           			  	case "random": remixed = mix6(track);
           				       break;
           			  }
-
-  		       	  //load the remix into the waveform
-  		          wavesurfer.loadBuffer(remixed);
+  			       	  //load the remix into the waveform
+  			          wavesurfer.loadBuffer(remixed);
           	          
   		  	      $("#info").text("Remix complete!");
-  
-                // Handle play and stop now that remix complete 
-
   
         	    	}); //end of select-mix-styles.click();
 

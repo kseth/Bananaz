@@ -105,10 +105,12 @@ WaveSurfer.Drawer = {
 
     drawFrame: function (index, value, max) {
         var w = 1;
-        var h = Math.floor(value * (this.height / max));
+        var h = Math.ceil(value * (this.height / max));
+	h = h-20;
 
         var x = index * w;
-        var y = Math.floor((this.height - h) / 2);
+        var y = Math.ceil((this.height - h) / 2);
+	y = y-10;
 	
 	if(x > this.cursorPos)
         	this.cc.fillStyle = this.params.waveColor;
