@@ -105,16 +105,17 @@ WaveSurfer.Drawer = {
 
     drawFrame: function (index, value, max) {
         var w = 1;
-        var h = Math.round(value * (this.height / max));
+        var h = Math.floor(value * (this.height / max));
 
         var x = index * w;
-        var y = Math.round((this.height - h) / 2);
+        var y = Math.floor((this.height - h) / 2);
 	
 	if(x > this.cursorPos)
         	this.cc.fillStyle = this.params.waveColor;
 	else
 	  	this.cc.fillStyle = this.params.progressColor;
-        this.cc.fillRect(x, y, w, h);
+        
+	this.cc.fillRect(x, y, w, h);
     },
 
 
