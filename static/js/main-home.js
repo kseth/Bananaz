@@ -280,7 +280,15 @@ function init(){
 
               $("#select-mix-styles").show();
 		      	  $("#select-mix-styles").find("input").click(function(evt){
-                  //make the remixer based on switching the value of the form
+
+
+				  //stop the old player
+				  player.stop();
+				  window.clearInterval(intervalVar);
+				  wavesurfer.drawer.progress(0);
+
+
+		                  //make the remixer based on switching the value of the form
           			  switch($(evt.currentTarget).attr("id")){ 
           			  	case "no-mix": remixed = mix0(track);
           				       break;
@@ -297,14 +305,10 @@ function init(){
           			  	case "random": remixed = mix6(track);
           				       break;
           			  }
-
-  		       	  //load the remix into the waveform
-  		          wavesurfer.loadBuffer(remixed);
+  			       	  //load the remix into the waveform
+  			          wavesurfer.loadBuffer(remixed);
           	          
   		  	      $("#info").text("Remix complete!");
-  
-                // Handle play and stop now that remix complete 
-
   
         	    	}); //end of select-mix-styles.click();
 
