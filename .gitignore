@@ -12,3 +12,4 @@ venv
 bin
 lib
 local
+*.swp

@@ -294,7 +294,7 @@ function createJRemixer(context, jquery, apiKey) {
             }
         },
 
-        getPlayer : function(effects) {
+        getPlayer : function(effects, audioGainValue) {
             var queueTime = 0;
             var audioGain = context.createGainNode();
             var curAudioSource = null;
@@ -303,7 +303,11 @@ function createJRemixer(context, jquery, apiKey) {
             var onPlayCallback = null;
             var afterPlayCallback = null;
             var currentTriggers = new Array();
-            audioGain.gain.value = 1;
+            console.log("audioGain: "+audioGain);
+	    if(audioGainValue)
+	      audioGain.gain.value = audioGainValue;
+	    else
+	      audioGain.gain.value = 1;
 
             // Connect effects
             effects = effects || [];
@@ -314,7 +318,7 @@ function createJRemixer(context, jquery, apiKey) {
             effects[i].connect(context.destination);
 
             function queuePlay(when, q) {
-                audioGain.gain.value = 1;
+                audioGain.gain.value = this.audioGainValue;
                 if (isAudioBuffer(q)) {
                     var audioSource = context.createBufferSource();
                     audioSource.buffer = q;
