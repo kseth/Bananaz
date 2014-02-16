@@ -228,6 +228,9 @@ function init(){
 
 	      $("#soundcloud-submit").click(function() {
 
+          $("#info").show("slow");
+          $("#textbox-div").hide('slow', function(){ $("#textbox-div").remove(); });
+
 		    $("#info").text("Getting data from SoundCloud...");
 		    var soundCloudURL = $("#soundcloud-url").val();
 
@@ -243,9 +246,9 @@ function init(){
                   
                   remixed = track.analysis.beats;
                   wavesurfer.loadBuffer(remixed);
-                  $("#play").show();
-                  $("#stop").show();
-                  $("#start-mixing").show();
+                  $("#play").show("slow");
+                  $("#stop").show("slow");
+                  $("#start-mixing").show("slow");
 
                  $("#play").click(function(){
                     console.log("starts playing");          
@@ -279,8 +282,14 @@ function init(){
 
 
               $("#select-mix-styles").show();
-		      	  $("#select-mix-styles").find("input").click(function(evt){
+		      	  $("#select-mix-styles").find("div").click(function(evt){
+
+                // Find the selected styles
+                $("#select-mix-styles").find(".selected").removeClass("selected");
+                $(evt.currentTarget).addClass("selected");
+
                   //make the remixer based on switching the value of the form
+
           			  switch($(evt.currentTarget).attr("id")){ 
           			  	case "no-mix": remixed = mix0(track);
           				       break;
@@ -328,7 +337,7 @@ function init(){
 		    }
       }); //end of remixer
 
-	   }); //end of sound-cloud submit button
+	   }); //end of sound-cloud upload button
     }
 }
 

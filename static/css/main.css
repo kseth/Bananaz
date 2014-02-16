@@ -4,13 +4,33 @@ body {
 	color: #fff;
 }
 
+input{
+	outline: none;
+  box-shadow:none !important;
+  	color: #fff;
+}
+
+input[type=text] {
+   color: #fff;
+}
+
 /*
 
 	HEADER
 
 */
 
+#logo{
+	width: 20em;
+	margin: 2em auto;
+}
+#logo img{
+	float: left;
+	margin-right: 1em;
+}
 #logo h1{
+	float: right;
+	margin-top: 0.3em;
 	font-family: 'Exo 2', sans-serif;
 	color: #fff;
 }
@@ -29,6 +49,40 @@ body {
 
 #info{
 	margin: 2em auto;
+	display: none;
+}
+
+#textbox-div #soundcloud-url{
+	width: 25em;
+	float: left;
+	background: none;
+	border: none;
+	outline: none;
+	border-bottom: 3px solid #fff;
+}
+#textbox-div #soundcloud-url:focus{
+	outline: none;
+	border-bottom: 3px solid #fff;
+}
+#textbox-div #soundcloud-submit{
+	float: right;
+}
+
+#select-mix-styles div{
+	border: 2px solid #fff;
+	margin-right: 1em;
+	padding: 0.5em;
+}
+#select-mix-styles img{
+	width: 3em;
+	height: 3em;
+	margin-right: 0.3em;
+}
+
+#select-mix-styles .selected, #select-mix-styles div:hover{
+	-moz-box-shadow:    0px 0px 3px 3px #fff;
+	-webkit-box-shadow: 0px 0px 3px 3px #fff;
+	box-shadow:         0px 0px 3px 3px #fff;
 }
 
 audio,

@@ -33,8 +33,8 @@
         </div>
 
 		<div id="info" class="large-12 columns"></div>
-		<div id="textbox-div">
-		    <input type="text" id="soundcloud-url" />
+		<div id="textbox-div" class="large-12 columns">
+		    <input type="text" id="soundcloud-url" placeholder="Please enter a SoundCloud URL"/>
 		    <input type="submit" id="soundcloud-submit" class="button" value="Upload" />
 		</div>
 
@@ -42,39 +42,31 @@
 		<!-- This is the waveform div with play and stop buttons-->
 		<div id='waveform'>
 			<form id="select-mix-styles">
-				<div>
-					<input type="radio" name="remix-style" id="no-mix">
+				<div id="no-mix" class="selected">
 					<img src="./static/img/no-mix.svg" height="50">No mix<br>
 				</div>
 
-				<div>
-					<input type="radio" name="remix-style" id="dice">
+				<div id="dice">
 					<img src="./static/img/dice.svg" height="50">Dice<br>
 				</div>
 
-				<div>
-					<input type="radio" name="remix-style" id="reverse">
+				<div id="reverse">
 					<img src="./static/img/reverse.svg" height="50">Reverse<br>
 				</div>
 
-				<div>
-					<input type="radio" name="remix-style" id="scramble">
+				<div id="scramble">
 					<img src="./static/img/scramble.svg" height="50">Scramble<br>
 				</div>
 
-				<div>
-					<input type="radio" name="remix-style" id="slice">
+				<div id="slice">
 					<img src="./static/img/slice.svg" height="50">Slice<br>
 				</div>
 
-
-				<div>
-					<input type="radio" name="remix-style" id="twins">
+				<div id="twins">
 					<img src="./static/img/twins.svg" height="50">Twins<br>
 				</div>
 
-				<div>
-					<input type="radio" name="remix-style" id="random">
+				<div id="random">
 					<img src="./static/img/random.svg" height="50">Random<br>
 				</div>
 
